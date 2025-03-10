@@ -4,23 +4,22 @@ import java.util.Date;
 
 public class CDT extends ProductBank {
     private int deadline;
-    private double amount;
     private double monthlyInterest;
 
-    public CDT(String numberAccount, Date startDate, double balance, int deadline, double amount, double monthlyInterest, Client client) {
+    public CDT(String numberAccount, Date startDate, double balance, int deadline, double monthlyInterest, Client client) {
         super(numberAccount, startDate, balance, client);
 
         this.deadline = deadline;
-        this.amount = amount;
         this.monthlyInterest = monthlyInterest;
     }
 
     @Override
     public double calculateInterest() {
-        return amount * (monthlyInterest / 100) * deadline;
+        double monthly = balance * (monthlyInterest / 100) / deadline;
+        return monthly;
     }
 
     public double getTotalAmount() {
-        return amount + calculateInterest();
+        return balance + calculateInterest();
     }
 }
