@@ -1,0 +1,93 @@
+// Clase Cliente
+public class Cliente {
+    private String documento;
+    private String nombre;
+    private String correo;
+    private String celular;
+    private String direccion;
+
+    // Constructor, getters y setters
+}
+
+// Clase abstracta Cuenta
+public abstract class Cuenta {
+    protected String numeroCuenta;
+    protected String fechaApertura;
+    protected double saldo;
+
+    public Cuenta(String numeroCuenta, String fechaApertura, double saldo) {
+        this.numeroCuenta = numeroCuenta;
+        this.fechaApertura = fechaApertura;
+        this.saldo = saldo;
+    }
+
+    public abstract void calcularIntereses();
+}
+
+// Clase CuentaAhorro
+public class CuentaAhorro extends Cuenta {
+    private double porcentajeInteres;
+
+    public CuentaAhorro(String numeroCuenta, String fechaApertura, double saldo, double porcentajeInteres) {
+        super(numeroCuenta, fechaApertura, saldo);
+        this.porcentajeInteres = porcentajeInteres;
+    }
+
+    @Override
+    public void calcularIntereses() {
+        saldo += saldo * (porcentajeInteres / 100);
+    }
+}
+
+// Clase CuentaCorriente
+public class CuentaCorriente extends Cuenta {
+    private double sobregiro;
+
+    public CuentaCorriente(String numeroCuenta, String fechaApertura, double saldo, double sobregiro) {
+        super(numeroCuenta, fechaApertura, saldo);
+        this.sobregiro = sobregiro;
+    }
+
+    @Override
+    public void calcularIntereses() {
+        saldo += saldo * (0.5 / 100); // Ejemplo de interés
+    }
+}
+
+// Clase CDT
+public class CDT extends Cuenta {
+    private int plazoMeses;
+    private double interesMensual;
+
+    public CDT(String numeroCuenta, String fechaApertura, double saldo, int plazoMeses, double interesMensual) {
+        super(numeroCuenta, fechaApertura, saldo);
+        this.plazoMeses = plazoMeses;
+        this.interesMensual = interesMensual;
+    }
+
+    @Override
+    public void calcularIntereses() {
+        saldo += saldo * (interesMensual / 100) * plazoMeses;
+    }
+}
+
+// Clase TarjetaCredito
+public class TarjetaCredito extends Cuenta {
+    private String fechaVencimiento;
+    private double interes;
+    private double cupo;
+    private double valorUtilizado;
+
+    public TarjetaCredito(String numeroCuenta, String fechaApertura, double saldo, String fechaVencimiento, double interes, double cupo, double valorUtilizado) {
+        super(numeroCuenta, fechaApertura, saldo);
+        this.fechaVencimiento = fechaVencimiento;
+        this.interes = interes;
+        this.cupo = cupo;
+        this.valorUtilizado = valorUtilizado;
+    }
+
+    @Override
+    public void calcularIntereses() {
+        saldo += valorUtilizado * (interes / 100);
+    }
+}
